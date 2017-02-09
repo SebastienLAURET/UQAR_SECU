@@ -7,7 +7,7 @@ OBJS			= $(FILES:.cpp=.o)
 
 GCC 			= g++
 
-CPPFLAGS	= -std=c++11
+CPPFLAGS	= -std=c++11 -I ./C++/Dependence/ -I ./C++/ -pthread
 
 RM				= rm -f
 

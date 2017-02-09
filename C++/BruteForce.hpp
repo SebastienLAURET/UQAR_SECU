@@ -2,15 +2,19 @@
 # define BRUTEFORCE_HPP_
 
 #include <iostream>
+#include <algorithm>
 #include <thread>
 #include <vector>
-
+#include <list>
+#include <ctgmath>
+#include <atomic>
 #include "MD5.hpp"
 
 class BruteForce : public std::thread {
 public:
-  BruteForce()
-  : std::thread(BruteForce::trampoline, this) {
+  BruteForce(std::list<std::string>  &tabH, std::atomic<uint64_t>/*uint64_t*/ &it)
+  : std::thread(BruteForce::trampoline, this),
+    _tabHash(tabH), _iter(it) {
     _tabChar = std::vector<char>({
       'a','b','c','d','e','f','g','h','i','j',
       'k','l','m','n','o','p','q','r','s','t',
@@ -25,11 +29,21 @@ public:
 
   void operator()() {
     std::string nPwd, pwdH;
-    for (size_t i = 0; i < 100; i++) {
-      nPwd = _genPwd(i, 8);
+    int       pwdLength = 5, tmpIter;
+    uint64_t  max = std::pow(_tabChar.size(), pwdLength);
+    std::cout << "max "<< max << " "<< _tabChar.size()<<'\n';
+    while (_iter < max) {
+      tmpIter = _iter++;
+      nPwd = _genPwd(tmpIter, pwdLength);
       pwdH = _md5(nPwd);
-      std::cout << nPwd << " = "<< pwdH << '\n';
+    //  std::cout << nPwd << "=" << pwdH << "==" << "65466125197978378ec6340989ac50db" << std::endl;
+      if (_checkPWD(pwdH)) {
+        std::cout << nPwd << "==" << pwdH << std::endl;
+        if (_tabHash.size() == 0)
+          exit(0);
+      }
     }
+
   }
 
 
@@ -38,8 +52,12 @@ public:
   }
 private:
 
-  std::string &_checkPWD() {
-
+  bool _checkPWD(std::string &input) {
+    auto it = std::find(_tabHash.begin(), _tabHash.end(), input);
+    if (it != _tabHash.end()) {
+      _tabHash.erase(it);
+    }
+    return (it != _tabHash.end());
   }
 
   std::string _md5(std::string &input) {
@@ -60,8 +78,10 @@ private:
     return newPwd;
   }
 
-  std::vector<char> _tabChar;
-
+  std::vector<char>       _tabChar;
+  std::list<std::string>  &_tabHash;
+  std::atomic<uint64_t>   &_iter;
+//  uint64_t   &_iter;
 };
 
 #endif //!BRUTEFORCE_HPP_
