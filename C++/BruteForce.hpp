@@ -12,7 +12,7 @@
 
 class BruteForce : public std::thread {
 public:
-  BruteForce(std::list<std::string>  &tabH, std::atomic<uint64_t>/*uint64_t*/ &it)
+  BruteForce(std::list<std::string>  &tabH, /*std::atomic<uint64_t>*/uint64_t &it)
   : std::thread(BruteForce::trampoline, this),
     _tabHash(tabH), _iter(it) {
     _tabChar = std::vector<char>({
@@ -80,8 +80,8 @@ private:
 
   std::vector<char>       _tabChar;
   std::list<std::string>  &_tabHash;
-  std::atomic<uint64_t>   &_iter;
-//  uint64_t   &_iter;
+//  std::atomic<uint64_t>   &_iter;
+  uint64_t   &_iter;
 };
 
 #endif //!BRUTEFORCE_HPP_

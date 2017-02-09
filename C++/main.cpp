@@ -3,8 +3,8 @@
 
 int main(int argc, char const *argv[]) {
   std::list<std::string>  listH;
-  std::atomic<uint64_t>   iter(0);
-  //uint64_t   iter = 0;
+  //std::atomic<uint64_t>   iter(0);
+  uint64_t   iter = 0;
 //  listH.push_back("");
   listH.push_back("77e2a767d2c6a7db4efaec3a6b78986a");
   listH.push_back("884ab2ad0e957096f465729f4b65c569");
