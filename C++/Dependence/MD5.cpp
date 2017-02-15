@@ -320,8 +320,8 @@ MD5& MD5::finalize()
     encode(digest, state, 16);
 
     // Zeroize sensitive information.
-    memset(buffer, 0, sizeof buffer);
-    memset(count, 0, sizeof count);
+  //  memset(buffer, 0, sizeof buffer);
+  //  memset(count, 0, sizeof count);
 
     finalized=true;
   }
@@ -332,17 +332,17 @@ MD5& MD5::finalize()
 //////////////////////////////
 
 // return hex representation of digest as string
-std::string MD5::hexdigest() const
+std::string *MD5::hexdigest() const
 {
   if (!finalized)
-    return "";
+    return nullptr;
 
   char buf[33];
   for (int i=0; i<16; i++)
     sprintf(buf+i*2, "%02x", digest[i]);
   buf[32]=0;
 
-  return std::string(buf);
+  return new std::string(buf);
 }
 
 //////////////////////////////
@@ -354,7 +354,7 @@ std::ostream& operator<<(std::ostream& out, MD5 md5)
 
 //////////////////////////////
 
-std::string md5(const std::string str)
+std::string *md5(const std::string &str)
 {
     MD5 md5 = MD5(str);
 

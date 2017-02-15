@@ -3,10 +3,9 @@
 
 int main(int argc, char const *argv[]) {
   std::list<std::string>  listH;
-  //std::atomic<uint64_t>   iter(0);
   uint64_t   iter = 0;
 //  listH.push_back("");
-  listH.push_back("77e2a767d2c6a7db4efaec3a6b78986a");
+  listH.push_back("0b4e7a0e5fe84ad35fb5f95b9ceeac79");
   listH.push_back("884ab2ad0e957096f465729f4b65c569");
   listH.push_back("3dbe00a167653a1aaee01d93e77e730e");
   listH.push_back("b45e9faa7b5a41268216ad80e212be81");
@@ -17,6 +16,8 @@ int main(int argc, char const *argv[]) {
   listH.push_back("dc808ed2f06d925ac0080dd894b0e277");
   listH.push_back("7963c90f29cdf901001511fd15068f07");
   listH.push_back("64adf2ea93b015fc4778752092d7b913");
+  listH.push_back("dcd0dade37bafc95603f220010a7f94e");
+               //  81854d328373663b052c32a6503035f2
   listH.push_back("81854d328373663b052c32a6503035f2");
   listH.push_back("11d5ccad80c724dbbc1e6edb5a9de6a3");
   listH.push_back("c27b8bd22ffc89de4a1aa97234414b50");
@@ -24,10 +25,11 @@ int main(int argc, char const *argv[]) {
   listH.push_back("9c7709b39efe0e0038419fd2aa9526b6");
   listH.push_back("d37f80a433a83d8657ffee229f80388c");
   listH.push_back("b276b39080338bba04115929753351d9");
-
+  listH.push_back("594f803b380a41396ed63dca39503542");
+  listH.push_back("fddd21b9d7ce17da93c30fa5a653a1df");
   std::list<BruteForce*> bFs;
 
-  for (size_t i = 0; i <= 8; i++) {
+  for (size_t i = 0; i < 16; i++) {
     bFs.push_back(new BruteForce(listH, iter));
   }
 
