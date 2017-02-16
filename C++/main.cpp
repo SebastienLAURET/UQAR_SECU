@@ -1,4 +1,5 @@
 #include <atomic>
+#include <thread>
 #include "BruteForce.hpp"
 
 int main(int argc, char const *argv[]) {
@@ -26,11 +27,13 @@ int main(int argc, char const *argv[]) {
   listH.push_back("d37f80a433a83d8657ffee229f80388c");
   listH.push_back("b276b39080338bba04115929753351d9");
   listH.push_back("594f803b380a41396ed63dca39503542");
-  listH.push_back("fddd21b9d7ce17da93c30fa5a653a1df");
-  std::list<BruteForce*> bFs;
+  listH.push_back("13bbf54a6850c393fb8d1b2b3bba997b");
+  std::list<std::thread*> bFs;
 
+  BruteForce *ttmp;
   for (size_t i = 0; i < 16; i++) {
-    bFs.push_back(new BruteForce(listH, iter));
+    ttmp = new BruteForce(listH, iter);
+    bFs.push_back(new std::thread(BruteForce::trampoline, ttmp));
   }
 
   for (auto bF : bFs) {

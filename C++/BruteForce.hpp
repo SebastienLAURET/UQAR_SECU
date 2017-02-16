@@ -3,18 +3,16 @@
 
 #include <iostream>
 #include <algorithm>
-#include <thread>
 #include <vector>
 #include <list>
 #include <ctgmath>
 #include <atomic>
 #include "MD5.hpp"
 
-class BruteForce : public std::thread {
+class BruteForce {
 public:
   BruteForce(std::list<std::string>  &tabH, /*std::atomic<uint64_t>*/uint64_t &it)
-  : std::thread(BruteForce::trampoline, this),
-    _tabHash(tabH), _iter(it) {
+  : _tabHash(tabH), _iter(it) {
     _tabChar = std::vector<char>({
       'a','b','c','d','e','f','g','h','i','j',
       'k','l','m','n','o','p','q','r','s','t',
@@ -30,7 +28,7 @@ public:
   void operator()() {
     std::string *nPwd;
     std::string *pwdH;
-    int       pwdLength = 5, tmpIter;
+    int       pwdLength = 6, tmpIter;
     uint64_t  max = std::pow(_tabChar.size(), pwdLength);
     while (_iter < max) {
       tmpIter = _iter++;
